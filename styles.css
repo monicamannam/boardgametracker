@@ -119,6 +119,7 @@ main { padding-bottom: 4rem; }
 .detail nav { padding-top: 1.75rem; }
 .back-link { font-weight: 650; }
 .detail-header { padding-block: 1.25rem 2rem; }
+.print-layout-link { display: inline-block; margin-top: .75rem; font-weight: 650; }
 .detail-layout { display: grid; grid-template-columns: 21rem minmax(0, 1fr); gap: 1.5rem; align-items: start; }
 .deck-summary, .card-group { background: #fff; border: 1px solid var(--line); border-radius: .75rem; }
 .deck-summary { display: grid; gap: 1.25rem; padding: 1rem; }

@@ -40,10 +40,14 @@ function cardUrl(card) {
   return `${ashesUrl}/cards/${encodeURIComponent(card.stub)}/`;
 }
 
+function cardImageSource(card) {
+  return `${cardImageUrl}/${encodeURIComponent(card.stub)}.jpg`;
+}
+
 function createDeckTile(deck) {
   const item = element("li");
   const link = element("a", "deck-link");
-  link.href = `./deck.html?id=${deck.id}`;
+  link.href = `./cards.html?id=${deck.id}`;
   link.append(
     element("h2", "deck-name", deck.title),
     element("p", "deck-phoenixborn", deck.phoenixborn.name),
@@ -108,7 +112,7 @@ function createCardLink(card, { lazy = true } = {}) {
     image.hidden = true;
     fallback.hidden = false;
   }, { once: true });
-  image.src = `${cardImageUrl}/${encodeURIComponent(card.stub)}.jpg`;
+  image.src = cardImageSource(card);
   art.append(image, fallback);
 
   const caption = element("span", "card-caption");
@@ -144,7 +148,7 @@ function createCardGroup(title, cards) {
   return section;
 }
 
-function renderDeck() {
+function renderDeckPage(showDeck) {
   const id = new URLSearchParams(window.location.search).get("id");
   const deck = ashesDecks.find(candidate => String(candidate.id) === id);
   const heading = document.getElementById("deck-title");
@@ -157,7 +161,13 @@ function renderDeck() {
 
   heading.textContent = deck.title;
   document.title = `${deck.title} | Board Game Tracker`;
+  showDeck(deck);
+}
 
+function renderGallery(deck) {
+  const printLink = document.getElementById("print-layout-link");
+  printLink.href = `./deck.html?id=${deck.id}`;
+  printLink.hidden = false;
   const phoenixbornCard = document.getElementById("phoenixborn-card");
   phoenixbornCard.append(createCardLink(deck.phoenixborn, { lazy: false }));
 
@@ -184,5 +194,47 @@ function renderDeck() {
   document.getElementById("deck-content").hidden = false;
 }
 
+async function renderPrintDeck(deck) {
+  const cards = [deck.phoenixborn];
+  for (const card of [...deck.cards, ...deck.conjurations]) {
+    for (let copy = 0; copy < card.count; copy += 1) cards.push(card);
+  }
+
+  const cardsPerSheet = 9;
+  const sheetCount = Math.ceil(cards.length / cardsPerSheet);
+  const sheets = document.getElementById("print-sheets");
+  const images = [];
+  for (let start = 0; start < cards.length; start += cardsPerSheet) {
+    const sheet = element("section", "print-sheet");
+    sheet.setAttribute("aria-label", `Sheet ${start / cardsPerSheet + 1} of ${sheetCount}`);
+    for (const card of cards.slice(start, start + cardsPerSheet)) {
+      const slot = element("div", "print-card");
+      const image = element("img");
+      image.alt = card.name;
+      image.src = cardImageSource(card);
+      slot.append(image);
+      sheet.append(slot);
+      images.push(image);
+    }
+    sheets.append(sheet);
+  }
+
+  document.getElementById("gallery-link").href = `./cards.html?id=${deck.id}`;
+  document.getElementById("print-summary").textContent = `${cards.length} cards · ${sheetCount} sheets`;
+  document.getElementById("print-actions").hidden = false;
+
+  const button = document.getElementById("print-button");
+  const status = document.getElementById("print-status");
+  button.addEventListener("click", () => window.print());
+  try {
+    await Promise.all(images.map(image => image.decode()));
+    status.textContent = "";
+    button.disabled = false;
+  } catch {
+    status.textContent = "Some card images couldn’t load. Reload this page to try again.";
+  }
+}
+
 if (document.getElementById("library")) renderLibrary();
-if (document.getElementById("deck-detail")) renderDeck();
+if (document.getElementById("deck-detail")) renderDeckPage(renderGallery);
+if (document.getElementById("print-deck")) renderDeckPage(renderPrintDeck);
