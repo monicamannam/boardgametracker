@@ -52,13 +52,14 @@ function siteUrl(path) {
 }
 
 function createDeckTile(deck) {
-  const item = element("li");
-  const link = element("a", "deck-link");
-  link.href = siteUrl(`/cards.html?id=${deck.id}`);
-  link.append(
-    element("h2", "deck-name", deck.title),
-    element("p", "deck-phoenixborn", deck.phoenixborn.name),
-  );
+  const item = element("li", "deck-tile");
+  const artwork = element("img", "deck-portrait");
+  artwork.alt = deck.phoenixborn.name;
+  artwork.width = 300;
+  artwork.height = 420;
+  artwork.loading = "lazy";
+  artwork.decoding = "async";
+  artwork.src = cardImageSource(deck.phoenixborn);
 
   const dice = element("ul", "dice-tags");
   dice.setAttribute("aria-label", "Dice pool");
@@ -67,8 +68,15 @@ function createDeckTile(deck) {
     tag.dataset.magic = die.name;
     dice.append(tag);
   }
-  link.append(dice);
-  item.append(link);
+
+  const actions = element("div", "deck-tile-actions");
+  for (const [label, page] of [["Card view", "cards.html"], ["Deck view", "deck.html"]]) {
+    const link = element("a", "deck-view-action", label);
+    link.href = siteUrl(`/${page}?id=${deck.id}`);
+    link.setAttribute("aria-label", `${label} for ${deck.title}`);
+    actions.append(link);
+  }
+  item.append(element("h2", "deck-name", deck.title), artwork, dice, actions);
   return item;
 }
 

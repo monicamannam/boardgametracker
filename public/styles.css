@@ -76,26 +76,27 @@ main { padding-bottom: 4rem; }
   padding: 0;
   list-style: none;
 }
-.deck-link {
+.deck-tile {
   display: flex;
   flex-direction: column;
-  gap: .3rem;
-  height: 100%;
+  gap: .9rem;
   padding: 1.05rem 1.1rem;
   border: 1px solid var(--line);
   border-radius: .75rem;
   background: #fff;
-  color: inherit;
-  text-decoration: none;
 }
-.deck-link:hover, .deck-link:focus-visible {
-  border-color: #9c87c5;
-  background: #fcfaff;
+.deck-name { font-size: 1.125rem; font-weight: 700; line-height: 1.35; }
+.deck-portrait {
+  display: block;
+  align-self: center;
+  width: min(100%, 11.5rem);
+  height: auto;
+  aspect-ratio: 5 / 7;
+  border-radius: .5rem;
+  background: #eeedf4;
+  object-fit: contain;
 }
-.deck-link:hover .deck-name, .deck-link:focus-visible .deck-name { color: var(--link); text-decoration: underline; }
-.deck-name { font-size: 1.0625rem; font-weight: 700; line-height: 1.35; }
-.deck-phoenixborn { color: var(--muted); font-size: .9375rem; }
-.dice-tags { display: flex; flex-wrap: wrap; gap: .4rem; padding: .65rem 0 0; margin-top: auto; list-style: none; }
+.dice-tags { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0; list-style: none; }
 .dice-tag {
   padding: .125rem .55rem;
   border-radius: .35rem;
@@ -113,6 +114,26 @@ main { padding-bottom: 4rem; }
 .dice-tag[data-magic="time"] { background: #ede9df; color: #605026; }
 .dice-tag[data-magic="artifice"] { background: #f2e8d8; color: #6d481b; }
 .dice-tag[data-magic="astral"] { background: #e0eef1; color: #235663; }
+.deck-tile-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .6rem;
+  margin-top: auto;
+}
+.deck-view-action {
+  display: grid;
+  place-items: center;
+  min-height: 2.75rem;
+  padding: .45rem .6rem;
+  border: 1px solid #d7cde9;
+  border-radius: .45rem;
+  background: #f9f6ff;
+  font-size: .9375rem;
+  font-weight: 650;
+  text-align: center;
+  text-decoration: none;
+}
+.deck-view-action:hover { background: #f0e9fb; text-decoration: underline; }
 .empty-state { padding: 1.5rem; border: 1px dashed #b7aec9; border-radius: .75rem; color: var(--muted); }
 
 .detail { --card-width: 18.75rem; max-width: 66rem; }
