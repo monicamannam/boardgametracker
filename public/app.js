@@ -61,14 +61,6 @@ function createDeckTile(deck) {
   artwork.decoding = "async";
   artwork.src = cardImageSource(deck.phoenixborn);
 
-  const dice = element("ul", "dice-tags");
-  dice.setAttribute("aria-label", "Dice pool");
-  for (const die of deck.dice) {
-    const tag = element("li", "dice-tag", diceLabel(die));
-    tag.dataset.magic = die.name;
-    dice.append(tag);
-  }
-
   const actions = element("div", "deck-tile-actions");
   for (const [label, page] of [["Card view", "cards.html"], ["Deck view", "deck.html"]]) {
     const link = element("a", "deck-view-action", label);
@@ -76,36 +68,15 @@ function createDeckTile(deck) {
     link.setAttribute("aria-label", `${label} for ${deck.title}`);
     actions.append(link);
   }
-  item.append(element("h2", "deck-name", deck.title), artwork, dice, actions);
+  item.append(element("h2", "deck-name", deck.title), artwork, actions);
   return item;
 }
 
 function renderLibrary(ashesDecks) {
-  const search = document.getElementById("deck-search");
   const list = document.getElementById("deck-list");
   const count = document.getElementById("result-count");
-  const empty = document.getElementById("no-results");
-  const entries = ashesDecks.map(deck => ({
-    searchText: `${deck.title} ${deck.phoenixborn.name}`.toLowerCase(),
-    tile: createDeckTile(deck),
-  }));
-  list.append(...entries.map(entry => entry.tile));
-
-  function updateResults() {
-    const terms = search.value.trim().toLowerCase().split(/\s+/);
-    let visible = 0;
-    for (const entry of entries) {
-      const matches = terms.every(term => entry.searchText.includes(term));
-      entry.tile.hidden = !matches;
-      if (matches) visible += 1;
-    }
-    count.textContent = `${visible} ${visible === 1 ? "deck" : "decks"}`;
-    empty.hidden = visible > 0;
-  }
-
-  search.addEventListener("input", updateResults);
-  window.addEventListener("pageshow", updateResults);
-  updateResults();
+  list.append(...ashesDecks.map(createDeckTile));
+  count.textContent = `${ashesDecks.length} ${ashesDecks.length === 1 ? "deck" : "decks"}`;
 }
 
 function totalCopies(cards) {
@@ -180,9 +151,6 @@ function renderDeckPage(ashesDecks, showDeck) {
 }
 
 function renderGallery(deck) {
-  const deckViewLink = document.getElementById("deck-view-link");
-  deckViewLink.href = siteUrl(`/deck.html?id=${deck.id}`);
-  deckViewLink.hidden = false;
   const phoenixbornCard = document.getElementById("phoenixborn-card");
   phoenixbornCard.append(createCardLink(deck.phoenixborn, { lazy: false }));
 
@@ -234,7 +202,6 @@ async function renderPrintDeck(deck) {
     sheets.append(sheet);
   }
 
-  document.getElementById("gallery-link").href = siteUrl(`/cards.html?id=${deck.id}`);
   const status = document.getElementById("print-status");
   status.hidden = false;
   try {

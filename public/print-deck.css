@@ -1,5 +1,4 @@
 .print-frame { max-width: 48rem; }
-.print-controls { padding-top: 1.75rem; }
 #print-status { color: var(--muted); margin-bottom: 1rem; }
 .print-sheet {
   display: grid;
