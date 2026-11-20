@@ -119,15 +119,16 @@ main { padding-bottom: 4rem; }
 .dice-tag[data-magic="astral"] { background: #e0eef1; color: #235663; }
 .empty-state { padding: 1.5rem; border: 1px dashed #b7aec9; border-radius: .75rem; color: var(--muted); }
 
-.detail { max-width: 66rem; }
+.detail { --card-width: 18.75rem; max-width: 66rem; }
 .detail nav { padding-top: 1.75rem; }
 .back-link { font-weight: 650; }
 .detail-header { padding-block: 1.25rem 2rem; }
 .detail-header a { display: inline-block; margin-top: .75rem; }
-.detail-layout { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+.detail-layout { display: grid; grid-template-columns: 21rem minmax(0, 1fr); gap: 1.5rem; align-items: start; }
 .deck-summary, .card-group { background: #fff; border: 1px solid var(--line); border-radius: .75rem; }
-.deck-summary { display: grid; gap: 1.25rem; padding: 1.2rem; }
+.deck-summary { display: grid; gap: 1.25rem; padding: 1rem; }
 .deck-summary h2 { margin-bottom: .55rem; font-size: .9375rem; color: var(--muted); }
+#phoenixborn-card { max-width: var(--card-width); }
 .card-group + .card-group { margin-top: 1.15rem; }
 .card-group-title {
   display: flex;
@@ -141,8 +142,9 @@ main { padding-bottom: 4rem; }
 .group-total { color: var(--muted); font-size: .875rem; font-weight: 500; white-space: nowrap; }
 .card-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr));
-  gap: 1.25rem .9rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--card-width)), var(--card-width)));
+  justify-content: center;
+  gap: 1.5rem .9rem;
   padding: 1rem 1.1rem 1.25rem;
   list-style: none;
 }
@@ -177,17 +179,21 @@ main { padding-bottom: 4rem; }
   font-variant-numeric: tabular-nums;
 }
 
+@media (max-width: 66.5rem) {
+  .detail-layout { grid-template-columns: minmax(0, 1fr); }
+  .deck-summary { grid-template-columns: minmax(0, var(--card-width)) minmax(0, 1fr); }
+}
 @media (max-width: 55rem) {
   .deck-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .detail-layout { grid-template-columns: 12rem minmax(0, 1fr); gap: 1rem; }
 }
 @media (max-width: 40rem) {
   .frame { width: calc(100% - 2rem); }
-  .detail-layout { grid-template-columns: minmax(0, 1fr); }
-  .deck-summary { grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); }
+}
+@media (max-width: 34rem) {
+  .deck-summary { grid-template-columns: minmax(0, 1fr); }
+  .card-gallery { padding-inline: .8rem; }
 }
 @media (max-width: 32rem) {
   .deck-grid { grid-template-columns: minmax(0, 1fr); }
   .library-tools { gap: .65rem; }
-  .card-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem .65rem; padding-inline: .8rem; }
 }
