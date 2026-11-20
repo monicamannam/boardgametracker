@@ -277,8 +277,9 @@ function renderGallery(deck) {
 }
 
 async function renderPrintDeck(deck) {
-  const cards = [deck.phoenixborn];
-  for (const card of [...deck.cards, ...deck.conjurations]) {
+  const cards = [];
+  const phoenixborn = { ...deck.phoenixborn, count: 1 };
+  for (const card of [...deck.cards, phoenixborn, ...deck.conjurations]) {
     for (let copy = 0; copy < card.count; copy += 1) cards.push(card);
   }
 
