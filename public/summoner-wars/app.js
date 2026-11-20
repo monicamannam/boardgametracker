@@ -138,24 +138,68 @@ function renderGallery(deck) {
   );
 }
 
-function expandCopies(cards, copiesFor) {
-  return cards.flatMap(card => Array.from({ length: copiesFor(card) }, () => card));
+function packCardGroups(groups, capacities) {
+  const sheets = capacities.map(() => []);
+
+  function placeGroup(index) {
+    if (index === groups.length) return true;
+
+    const group = groups[index];
+    const triedCapacities = new Set();
+    for (const [sheetIndex, sheet] of sheets.entries()) {
+      const available = capacities[sheetIndex] - sheet.length;
+      if (available < group.length || triedCapacities.has(available)) continue;
+      triedCapacities.add(available);
+
+      sheet.push(...group);
+      if (placeGroup(index + 1)) return true;
+      sheet.length -= group.length;
+    }
+    return false;
+  }
+
+  return placeGroup(0) ? sheets : null;
+}
+
+function arrangePrintSheets(deck) {
+  const cardsPerSheet = 9;
+  const factionCards = [...deck.commons, ...deck.events, ...deck.champions];
+  const groups = [];
+  for (const card of factionCards) {
+    // Keep every copy together, including any copy used in setup.
+    for (let remaining = card.count; remaining > 0; remaining -= cardsPerSheet) {
+      groups.push(Array(Math.min(remaining, cardsPerSheet)).fill(card));
+    }
+  }
+  groups.sort((a, b) => b.length - a.length);
+
+  const cardCount = 1 + factionCards.reduce((total, card) => total + card.count, 0);
+  const minSheets = Math.ceil(cardCount / cardsPerSheet);
+  const capacities = Array(minSheets).fill(cardsPerSheet);
+  // Reserve the first slot of the last sheet for the Summoner.
+  capacities[minSheets - 1] = (cardCount - 1) % cardsPerSheet;
+  let sheets = packCardGroups(groups, capacities);
+
+  // If full sheets are impossible, allow blank slots before adding another sheet.
+  for (let sheetCount = minSheets; !sheets; sheetCount += 1) {
+    const flexibleCapacities = Array(sheetCount).fill(cardsPerSheet);
+    flexibleCapacities[sheetCount - 1] -= 1;
+    sheets = packCardGroups(groups, flexibleCapacities);
+  }
+
+  sheets.at(-1).unshift(deck.summoner);
+  return sheets;
 }
 
 async function renderPrintDeck(deck) {
-  const factionCards = [...deck.champions, ...deck.commons, ...deck.events];
-  const drawPile = expandCopies(factionCards, drawPileCount);
-  const startingCards = expandCopies(factionCards, card => card.starting ?? 0);
-  const cards = [...drawPile, deck.summoner, ...startingCards];
-  const cardsPerSheet = 9;
-  const sheetCount = Math.ceil(cards.length / cardsPerSheet);
+  const layout = arrangePrintSheets(deck);
   const sheets = document.getElementById("print-sheets");
   const images = [];
 
-  for (let start = 0; start < cards.length; start += cardsPerSheet) {
+  for (const [index, cards] of layout.entries()) {
     const sheet = element("section", "print-sheet");
-    sheet.setAttribute("aria-label", `Sheet ${start / cardsPerSheet + 1} of ${sheetCount}`);
-    for (const card of cards.slice(start, start + cardsPerSheet)) {
+    sheet.setAttribute("aria-label", `Sheet ${index + 1} of ${layout.length}`);
+    for (const card of cards) {
       const slot = element("div", "print-card");
       const face = createCardFace(card);
       images.push(face.querySelector("img"));
