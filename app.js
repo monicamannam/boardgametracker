@@ -2,6 +2,19 @@
 
 const ashesUrl = "https://ashes.live";
 const cardImageUrl = "https://cdn.ashes.live/images/cards";
+// Product images hosted by the Ashes publisher, Plaid Hat Games.
+const diceImageBase = "https://media.plaidhatgames.com/filer_public";
+const diceImages = {
+  artifice: "5d/9e/5d9eb21b-12d4-47de-8156-8cf301d26114/ashes_add_on-artifice_dice.png",
+  astral: "fd/52/fd52466d-990f-46f0-94df-4c5a0e37f2a3/ashes_add_on-astral_dice.png",
+  ceremonial: "01/1e/011ed743-2927-4032-b59c-600eccbd05e3/ashes_add_on-ceremonial_dice.png",
+  charm: "0e/5e/0e5e218c-a633-40c2-9943-ea41ddfb8cbc/ashes_add_on-charm_dice.png",
+  divine: "6b/7f/6b7f6419-8ba6-480d-a769-74f1fe883e93/ashes_add_on-divine_dice.png",
+  illusion: "ec/ee/eceea163-4e99-4583-a6e6-0a013989b624/ashes_add_on-illusion_dice.png",
+  natural: "19/6b/196b16e9-76d2-45cd-ac7f-215cb8a31cbf/ashes_add_on-natural_dice.png",
+  sympathy: "97/58/975879cd-b42c-42e6-92ab-4c930d44eaf4/ashes_add_on-sympathy_dice.png",
+  time: "f2/20/f2209e41-c4bd-426a-8915-29507e41cbf0/ashes_add_on-time_dice.png",
+};
 const cardTypes = [
   "Ready Spell",
   "Ally",
@@ -145,17 +158,22 @@ function renderDeck() {
   heading.textContent = deck.title;
   document.title = `${deck.title} | Board Game Tracker`;
 
-  const sourceLink = document.getElementById("source-link");
-  sourceLink.href = `${ashesUrl}/decks/${deck.id}/`;
-  sourceLink.hidden = false;
-
   const phoenixbornCard = document.getElementById("phoenixborn-card");
   phoenixbornCard.append(createCardLink(deck.phoenixborn, { lazy: false }));
 
   const dice = document.getElementById("dice-pool");
   for (const die of deck.dice) {
-    const item = element("li", "dice-tag", diceLabel(die));
-    item.dataset.magic = die.name;
+    const item = element("li", "dice-pool-item");
+    const imagePath = diceImages[die.name];
+    if (imagePath) {
+      const image = element("img", "dice-photo");
+      image.alt = "";
+      image.decoding = "async";
+      image.addEventListener("error", () => { image.hidden = true; }, { once: true });
+      image.src = `${diceImageBase}/${imagePath}`;
+      item.append(image);
+    }
+    item.append(element("span", null, diceLabel(die)));
     dice.append(item);
   }
   const cardLists = document.getElementById("card-lists");

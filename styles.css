@@ -20,15 +20,13 @@ main { padding-bottom: 4rem; }
 .site-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
   min-height: 4.25rem;
 }
-.brand, .site-link { color: #fff; }
 .brand {
   display: inline-flex;
   align-items: center;
   gap: .75rem;
+  color: #fff;
   font-weight: 650;
   text-decoration: none;
 }
@@ -40,7 +38,6 @@ main { padding-bottom: 4rem; }
   border-radius: .15rem;
   transform: rotate(45deg);
 }
-.site-link { color: #e2d6f8; font-size: .9375rem; }
 .site-bar a:focus-visible { outline-color: #dfceff; }
 
 .page-header { padding-block: clamp(2.25rem, 5vw, 4.5rem) 2rem; }
@@ -98,8 +95,7 @@ main { padding-bottom: 4rem; }
 .deck-link:hover .deck-name, .deck-link:focus-visible .deck-name { color: var(--link); text-decoration: underline; }
 .deck-name { font-size: 1.0625rem; font-weight: 700; line-height: 1.35; }
 .deck-phoenixborn { color: var(--muted); font-size: .9375rem; }
-.dice-tags, .dice-list { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0; list-style: none; }
-.dice-tags { margin-top: auto; padding-top: .65rem; }
+.dice-tags { display: flex; flex-wrap: wrap; gap: .4rem; padding: .65rem 0 0; margin-top: auto; list-style: none; }
 .dice-tag {
   padding: .125rem .55rem;
   border-radius: .35rem;
@@ -123,12 +119,37 @@ main { padding-bottom: 4rem; }
 .detail nav { padding-top: 1.75rem; }
 .back-link { font-weight: 650; }
 .detail-header { padding-block: 1.25rem 2rem; }
-.detail-header a { display: inline-block; margin-top: .75rem; }
 .detail-layout { display: grid; grid-template-columns: 21rem minmax(0, 1fr); gap: 1.5rem; align-items: start; }
 .deck-summary, .card-group { background: #fff; border: 1px solid var(--line); border-radius: .75rem; }
 .deck-summary { display: grid; gap: 1.25rem; padding: 1rem; }
 .deck-summary h2 { margin-bottom: .55rem; font-size: .9375rem; color: var(--muted); }
 #phoenixborn-card { max-width: var(--card-width); }
+.dice-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 7rem), 1fr));
+  gap: .65rem;
+  padding: 0;
+  list-style: none;
+}
+.dice-pool-item {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: .25rem;
+  padding: .35rem .25rem .55rem;
+  border: 1px solid var(--line);
+  border-radius: .5rem;
+  text-align: center;
+  font-size: .9375rem;
+  font-weight: 650;
+}
+.dice-photo {
+  display: block;
+  width: 100%;
+  max-width: 9rem;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+}
 .card-group + .card-group { margin-top: 1.15rem; }
 .card-group-title {
   display: flex;
