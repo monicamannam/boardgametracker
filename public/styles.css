@@ -19,8 +19,11 @@ main { padding-bottom: 4rem; }
 .site-header { background: var(--dark); }
 .site-bar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  gap: .35rem 1.25rem;
   min-height: 4.25rem;
+  padding-block: .75rem;
 }
 .brand {
   display: inline-flex;
@@ -38,6 +41,8 @@ main { padding-bottom: 4rem; }
   border-radius: .15rem;
   transform: rotate(45deg);
 }
+.brand:hover { text-decoration: underline; }
+.game-home-link { color: #e8e1f5; font-weight: 600; }
 .site-bar a:focus-visible { outline-color: #dfceff; }
 
 .page-header { padding-block: clamp(2.25rem, 5vw, 4.5rem) 2rem; }
