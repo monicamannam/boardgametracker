@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Ashes Card Catalog | Board Game Tracker</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/ashes/app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="frame site-bar">
+        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>Board Game Tracker</a>
+      </div>
+    </header>
+    <main class="frame" id="catalog">
+      <header class="page-header">
+        <h1 id="catalog-title">Ashes Card Catalog</h1>
+      </header>
+      <table class="catalog-table" aria-labelledby="catalog-title">
+        <colgroup>
+          <col class="catalog-card-column">
+          <col class="catalog-count-column">
+          <col>
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col">Card</th>
+            <th scope="col">Deck count</th>
+            <th scope="col">Decks</th>
+          </tr>
+        </thead>
+        <tbody id="catalog-rows"></tbody>
+      </table>
+      <noscript><p>Enable JavaScript to see the card catalog.</p></noscript>
+    </main>
+  </body>
+</html>

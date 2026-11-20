@@ -87,6 +87,47 @@ function renderLibrary(ashesDecks) {
   list.append(...ashesDecks.map(createDeckTile));
 }
 
+function renderCatalog(ashesDecks) {
+  const alphabet = new Intl.Collator("en", { sensitivity: "base" });
+  const sortedDecks = [...ashesDecks].sort((a, b) => alphabet.compare(a.title, b.title));
+  const byCard = new Map();
+  for (const deck of sortedDecks) {
+    const allCards = [deck.phoenixborn, ...deck.cards, ...deck.conjurations];
+    const seen = new Set();
+    for (const card of allCards) {
+      if (seen.has(card.stub)) continue;
+      seen.add(card.stub);
+      if (!byCard.has(card.stub)) byCard.set(card.stub, { card, decks: [] });
+      byCard.get(card.stub).decks.push(deck);
+    }
+  }
+
+  const rows = document.createDocumentFragment();
+  const entries = [...byCard.values()].sort((a, b) => alphabet.compare(a.card.name, b.card.name));
+  for (const { card, decks } of entries) {
+    const row = element("tr");
+    const cardCell = element("th");
+    cardCell.scope = "row";
+    const cardLink = element("a", null, card.name);
+    cardLink.href = cardUrl(card);
+    cardCell.append(cardLink);
+
+    const deckCell = element("td");
+    const deckLinks = element("ul", "catalog-deck-links");
+    for (const deck of decks) {
+      const item = element("li");
+      const link = element("a", null, deck.title);
+      link.href = siteUrl(`/ashes/deck.html?id=${deck.id}`);
+      item.append(link);
+      deckLinks.append(item);
+    }
+    deckCell.append(deckLinks);
+    row.append(cardCell, element("td", "catalog-count", decks.length), deckCell);
+    rows.append(row);
+  }
+  document.getElementById("catalog-rows").append(rows);
+}
+
 function totalCopies(cards) {
   return cards.reduce((total, card) => total + card.count, 0);
 }
@@ -223,6 +264,7 @@ async function renderPrintDeck(deck) {
 try {
   const { ashesDecks } = await import(siteUrl("/ashes/decks.js"));
   if (document.getElementById("library")) renderLibrary(ashesDecks);
+  if (document.getElementById("catalog")) renderCatalog(ashesDecks);
   if (document.getElementById("deck-detail")) renderDeckPage(ashesDecks, renderGallery);
   if (document.getElementById("print-deck")) renderDeckPage(ashesDecks, renderPrintDeck);
 } catch {

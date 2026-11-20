@@ -9,6 +9,7 @@ const files = new Map([
   ["summoner-wars", ["summoner-wars/index.html", html]],
   ["lord-of-the-rings-lcg", ["lord-of-the-rings-lcg/index.html", html]],
   ["cards", ["ashes/cards.html", html]],
+  ["catalog", ["ashes/catalog.html", html]],
   ["deck", ["ashes/deck.html", html]],
   ["data", ["ashes/decks.mjs", "text/javascript; charset=utf-8"]],
 ]);
