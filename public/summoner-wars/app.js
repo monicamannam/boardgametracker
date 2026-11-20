@@ -143,7 +143,7 @@ function expandCopies(cards, copiesFor) {
 }
 
 async function renderPrintDeck(deck) {
-  const factionCards = [...deck.champions, ...deck.commons, ...deck.events, ...gates];
+  const factionCards = [...deck.champions, ...deck.commons, ...deck.events];
   const drawPile = expandCopies(factionCards, drawPileCount);
   const startingCards = expandCopies(factionCards, card => card.starting ?? 0);
   const cards = [...drawPile, deck.summoner, ...startingCards];
