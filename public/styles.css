@@ -34,11 +34,20 @@ main { padding-bottom: 4rem; }
   text-decoration: none;
 }
 .brand-mark {
-  width: .8rem;
-  height: .8rem;
+  display: grid;
+  place-items: center;
+  width: .78rem;
+  height: 1.05rem;
   flex: none;
-  border: 2px solid #dfceff;
-  border-radius: .15rem;
+  border-radius: .125rem;
+  background: #dfceff;
+  transform: rotate(-10deg);
+}
+.brand-mark::after {
+  content: "";
+  width: .235rem;
+  aspect-ratio: 1;
+  background: var(--dark);
   transform: rotate(45deg);
 }
 .brand:hover { text-decoration: underline; }
