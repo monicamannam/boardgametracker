@@ -1,6 +1,7 @@
 "use strict";
 
 const ashesUrl = "https://ashes.live";
+const cardImageUrl = "https://cdn.ashes.live/images/cards";
 const cardTypes = [
   "Ready Spell",
   "Ally",
@@ -79,6 +80,37 @@ function totalCopies(cards) {
   return cards.reduce((total, card) => total + card.count, 0);
 }
 
+function createCardLink(card, { lazy = true } = {}) {
+  const link = element("a", "card-link");
+  link.href = cardUrl(card);
+
+  const art = element("span", "card-art");
+  const image = element("img", "card-image");
+  const fallback = element("span", "card-image-fallback", "Image unavailable");
+  fallback.hidden = true;
+  image.alt = "";
+  image.decoding = "async";
+  if (lazy) image.loading = "lazy";
+  image.addEventListener("error", () => {
+    image.hidden = true;
+    fallback.hidden = false;
+  }, { once: true });
+  image.src = `${cardImageUrl}/${encodeURIComponent(card.stub)}.jpg`;
+  art.append(image, fallback);
+
+  const caption = element("span", "card-caption");
+  const name = element("span", "card-title", card.name);
+  if (card.phoenixborn) {
+    name.append(element("span", "card-unique", ` (${card.phoenixborn})`));
+  }
+  caption.append(name);
+  if (card.count !== undefined) {
+    caption.append(element("span", "card-quantity", `×${card.count}`));
+  }
+  link.append(art, caption);
+  return link;
+}
+
 function createCardGroup(title, cards) {
   const section = element("section", "card-group");
   const total = totalCopies(cards);
@@ -86,21 +118,13 @@ function createCardGroup(title, cards) {
   heading.append(element("span", "group-total", `${total} ${total === 1 ? "card" : "cards"}`));
   section.append(heading);
 
-  const list = element("ul", "card-list");
+  const list = element("ul", "card-gallery");
   for (const type of cardTypes) {
     const matching = cards.filter(card => card.type === type);
     for (const card of matching) {
-      const row = element("li", "card-row");
-      const quantity = element("span", "card-quantity", `${card.count}×`);
-      quantity.setAttribute("aria-label", `${card.count} ${card.count === 1 ? "copy" : "copies"}`);
-      const link = element("a", "card-link", card.name);
-      link.href = cardUrl(card);
-      if (card.phoenixborn) {
-        link.append(element("span", "card-unique", ` (${card.phoenixborn})`));
-      }
-      const cardType = element("span", "card-type", type);
-      row.append(quantity, link, cardType);
-      list.append(row);
+      const item = element("li");
+      item.append(createCardLink(card));
+      list.append(item);
     }
   }
   section.append(list);
@@ -125,9 +149,8 @@ function renderDeck() {
   sourceLink.href = `${ashesUrl}/decks/${deck.id}/`;
   sourceLink.hidden = false;
 
-  const phoenixbornLink = document.getElementById("phoenixborn-link");
-  phoenixbornLink.textContent = deck.phoenixborn.name;
-  phoenixbornLink.href = cardUrl(deck.phoenixborn);
+  const phoenixbornCard = document.getElementById("phoenixborn-card");
+  phoenixbornCard.append(createCardLink(deck.phoenixborn, { lazy: false }));
 
   const dice = document.getElementById("dice-pool");
   for (const die of deck.dice) {
