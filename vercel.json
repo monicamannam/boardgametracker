@@ -16,6 +16,9 @@
     { "source": "/ashes/:view(cards|deck|catalog|deckuniques).html", "destination": "/api/site?view=:view" },
     { "source": "/ashes/:view(cards|deck|catalog|deckuniques)", "destination": "/api/site?view=:view" },
     { "source": "/ashes/decks.js", "destination": "/api/site?view=data" },
+    { "source": "/summoner-wars/:view(cards|deck).html", "destination": "/api/site?view=sw-:view" },
+    { "source": "/summoner-wars/:view(cards|deck)", "destination": "/api/site?view=sw-:view" },
+    { "source": "/summoner-wars/decks.js", "destination": "/api/site?view=sw-data" },
     { "source": "/:view(cards|deck).html", "destination": "/api/site?view=legacy-:view" },
     { "source": "/:view(cards|deck)", "destination": "/api/site?view=legacy-:view" },
     { "source": "/decks.js", "destination": "/api/site?view=legacy-data" }

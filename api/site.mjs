@@ -13,6 +13,9 @@ const files = new Map([
   ["deckuniques", ["ashes/deckuniques.html", html]],
   ["deck", ["ashes/deck.html", html]],
   ["data", ["ashes/decks.mjs", "text/javascript; charset=utf-8"]],
+  ["sw-cards", ["summoner-wars/cards.html", html]],
+  ["sw-deck", ["summoner-wars/deck.html", html]],
+  ["sw-data", ["summoner-wars/decks.mjs", "text/javascript; charset=utf-8"]],
 ]);
 const legacyPaths = new Map([
   ["legacy-cards", "/ashes/cards.html"],

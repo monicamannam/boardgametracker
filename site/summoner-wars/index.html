@@ -3,10 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Browse Summoner Wars Second Edition factions and their preconstructed decks.">
     <meta name="color-scheme" content="light">
-    <title>Summoner Wars | Board Game Tracker</title>
+    <title>Summoner Wars Deck Library | Board Game Tracker</title>
     <link rel="stylesheet" href="/styles.css">
-    <script type="module" src="/navigation.js"></script>
+    <link rel="stylesheet" href="/summoner-wars/cards.css">
+    <script type="module" src="/summoner-wars/app.js"></script>
   </head>
   <body>
     <header class="site-header">
@@ -15,11 +17,12 @@
         <a class="game-home-link" href="/summoner-wars/" aria-current="page">Summoner Wars</a>
       </nav>
     </header>
-    <main class="frame">
+    <main class="frame" id="library">
       <header class="page-header">
-        <h1>Summoner Wars</h1>
-        <p>Work in progress.</p>
+        <h1>Summoner Wars Deck Library</h1>
       </header>
+      <ul class="tile-grid" id="deck-list" aria-label="Faction decks"></ul>
+      <noscript><p>Enable JavaScript to browse the deck library.</p></noscript>
     </main>
   </body>
 </html>

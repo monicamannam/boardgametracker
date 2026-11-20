@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Summoner Wars Deck View | Board Game Tracker</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/print-deck.css">
+    <link rel="stylesheet" href="/summoner-wars/cards.css">
+    <script type="module" src="/summoner-wars/app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="frame site-bar" aria-label="Site navigation">
+        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>Game selection</a>
+        <a class="game-home-link" href="/summoner-wars/">Summoner Wars</a>
+      </nav>
+    </header>
+    <main class="frame print-frame" id="print-deck">
+      <header class="print-controls">
+        <div class="page-header detail-header">
+          <h1 id="deck-title">Summoner Wars Deck View</h1>
+          <p id="deck-message" hidden>The requested faction isn’t in this library.</p>
+        </div>
+        <p id="print-status" role="status" hidden>Loading card images…</p>
+        <noscript><p>Enable JavaScript to view this deck.</p></noscript>
+      </header>
+      <div id="print-sheets"></div>
+    </main>
+  </body>
+</html>
