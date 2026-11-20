@@ -138,8 +138,7 @@ function createSetupDiagram(deck) {
 }
 
 function createSetupReference(deck) {
-  const slot = element("div", "print-card");
-  const face = element("div", "sw-card-face");
+  const slot = element("div", "print-card setup-reference-slot");
   const reference = element("div", "setup-reference");
   const heading = element("div", "setup-reference-heading");
   heading.append(
@@ -151,8 +150,7 @@ function createSetupReference(deck) {
   const cards = element("ul", "setup-reference-cards");
   cards.append(...startingCardNames(deck).map(name => element("li", null, name)));
   reference.append(heading, image, cards);
-  face.append(reference);
-  slot.append(face);
+  slot.append(reference);
   return slot;
 }
 
@@ -222,7 +220,7 @@ function arrangePrintSheets(deck) {
 
 async function renderPrintDeck(deck) {
   const layout = arrangePrintSheets(deck);
-  if (layout.at(-1).length === cardsPerSheet) layout.push([]);
+  if (layout.at(-1).length > cardsPerSheet - 2) layout.push([]);
   const sheets = document.getElementById("print-sheets");
   const images = [];
 

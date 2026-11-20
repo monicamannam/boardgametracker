@@ -51,13 +51,17 @@
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
+.setup-reference-slot {
+  grid-column: span 2;
+  container-type: inline-size;
+}
 .setup-reference {
   position: absolute;
   inset: 0;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
-  gap: 2.6cqw;
-  padding: 4cqw;
+  gap: 1.6cqw;
+  padding: 3.2cqw;
   border: 1px solid #d7cde9;
   color: #242036;
 }
