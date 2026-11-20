@@ -1,7 +1,6 @@
-"use strict";
-
 const ashesUrl = "https://ashes.live";
 const cardImageUrl = "https://cdn.ashes.live/images/cards";
+const pageKey = new URLSearchParams(window.location.search).get("key");
 // Product images hosted by the Ashes publisher, Plaid Hat Games.
 const diceImageBase = "https://media.plaidhatgames.com/filer_public";
 const diceImages = {
@@ -44,10 +43,18 @@ function cardImageSource(card) {
   return `${cardImageUrl}/${encodeURIComponent(card.stub)}.jpg`;
 }
 
+function siteUrl(path) {
+  const url = new URL(path, window.location.href);
+  if (url.origin === window.location.origin && pageKey !== null) {
+    url.searchParams.set("key", pageKey);
+  }
+  return url.href;
+}
+
 function createDeckTile(deck) {
   const item = element("li");
   const link = element("a", "deck-link");
-  link.href = `./cards.html?id=${deck.id}`;
+  link.href = siteUrl(`/cards.html?id=${deck.id}`);
   link.append(
     element("h2", "deck-name", deck.title),
     element("p", "deck-phoenixborn", deck.phoenixborn.name),
@@ -65,7 +72,7 @@ function createDeckTile(deck) {
   return item;
 }
 
-function renderLibrary() {
+function renderLibrary(ashesDecks) {
   const search = document.getElementById("deck-search");
   const list = document.getElementById("deck-list");
   const count = document.getElementById("result-count");
@@ -148,7 +155,7 @@ function createCardGroup(title, cards) {
   return section;
 }
 
-function renderDeckPage(showDeck) {
+function renderDeckPage(ashesDecks, showDeck) {
   const id = new URLSearchParams(window.location.search).get("id");
   const deck = ashesDecks.find(candidate => String(candidate.id) === id);
   const heading = document.getElementById("deck-title");
@@ -166,7 +173,7 @@ function renderDeckPage(showDeck) {
 
 function renderGallery(deck) {
   const deckViewLink = document.getElementById("deck-view-link");
-  deckViewLink.href = `./deck.html?id=${deck.id}`;
+  deckViewLink.href = siteUrl(`/deck.html?id=${deck.id}`);
   deckViewLink.hidden = false;
   const phoenixbornCard = document.getElementById("phoenixborn-card");
   phoenixbornCard.append(createCardLink(deck.phoenixborn, { lazy: false }));
@@ -219,7 +226,7 @@ async function renderPrintDeck(deck) {
     sheets.append(sheet);
   }
 
-  document.getElementById("gallery-link").href = `./cards.html?id=${deck.id}`;
+  document.getElementById("gallery-link").href = siteUrl(`/cards.html?id=${deck.id}`);
   const status = document.getElementById("print-status");
   status.hidden = false;
   try {
@@ -230,6 +237,17 @@ async function renderPrintDeck(deck) {
   }
 }
 
-if (document.getElementById("library")) renderLibrary();
-if (document.getElementById("deck-detail")) renderDeckPage(renderGallery);
-if (document.getElementById("print-deck")) renderDeckPage(renderPrintDeck);
+for (const link of document.querySelectorAll("a[href]")) {
+  link.href = siteUrl(link.href);
+}
+
+try {
+  const { ashesDecks } = await import(siteUrl("/decks.js"));
+  if (document.getElementById("library")) renderLibrary(ashesDecks);
+  if (document.getElementById("deck-detail")) renderDeckPage(ashesDecks, renderGallery);
+  if (document.getElementById("print-deck")) renderDeckPage(ashesDecks, renderPrintDeck);
+} catch {
+  const message = element("p", "empty-state", "Couldn’t load the deck data. Reload this page to try again.");
+  message.setAttribute("role", "alert");
+  document.querySelector("main").prepend(message);
+}

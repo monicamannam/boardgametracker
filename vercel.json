@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "cleanUrls": false,
+  "outputDirectory": "public",
+  "functions": {
+    "api/site.mjs": { "includeFiles": "site/**" }
+  },
+  "rewrites": [
+    { "source": "/", "destination": "/api/site?view=index" },
+    { "source": "/:view(index|cards|deck).html", "destination": "/api/site?view=:view" },
+    { "source": "/:view(index|cards|deck)", "destination": "/api/site?view=:view" },
+    { "source": "/decks.js", "destination": "/api/site?view=data" }
+  ]
+}
