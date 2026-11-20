@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Ashes Deck View | Board Game Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="print-deck.css">
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="frame site-bar">
+        <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true"></span>Board Game Tracker</a>
+      </div>
+    </header>
+    <main class="frame print-frame" id="print-deck">
+      <header class="print-controls">
+        <nav aria-label="Deck navigation">
+          <a class="back-link" id="gallery-link" href="./index.html">Back to cards</a>
+        </nav>
+        <div class="page-header detail-header">
+          <h1 id="deck-title">Ashes Deck View</h1>
+          <p id="deck-message" hidden>The requested deck isn’t in this library.</p>
+        </div>
+        <p id="print-status" role="status" hidden>Loading card images…</p>
+        <noscript><p>Enable JavaScript to view this deck.</p></noscript>
+      </header>
+      <div id="print-sheets"></div>
+    </main>
+  </body>
+</html>
