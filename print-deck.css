@@ -1,28 +1,6 @@
 .print-frame { max-width: 48rem; }
 .print-controls { padding-top: 1.75rem; }
-.print-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: .75rem 1.25rem;
-  margin-bottom: 1.5rem;
-}
-#print-summary { font-weight: 700; }
-.print-instructions, #print-status { color: var(--muted); }
-#print-status { flex-basis: 100%; }
-#print-status:empty { display: none; }
-#print-button {
-  padding: .55rem 1.25rem;
-  border: 1px solid var(--link);
-  border-radius: .45rem;
-  background: var(--link);
-  color: #fff;
-  font: inherit;
-  font-weight: 650;
-  cursor: pointer;
-}
-#print-button:disabled { opacity: .55; cursor: default; }
+#print-status { color: var(--muted); margin-bottom: 1rem; }
 .print-sheet {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

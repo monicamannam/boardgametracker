@@ -165,9 +165,9 @@ function renderDeckPage(showDeck) {
 }
 
 function renderGallery(deck) {
-  const printLink = document.getElementById("print-layout-link");
-  printLink.href = `./deck.html?id=${deck.id}`;
-  printLink.hidden = false;
+  const deckViewLink = document.getElementById("deck-view-link");
+  deckViewLink.href = `./deck.html?id=${deck.id}`;
+  deckViewLink.hidden = false;
   const phoenixbornCard = document.getElementById("phoenixborn-card");
   phoenixbornCard.append(createCardLink(deck.phoenixborn, { lazy: false }));
 
@@ -220,16 +220,11 @@ async function renderPrintDeck(deck) {
   }
 
   document.getElementById("gallery-link").href = `./cards.html?id=${deck.id}`;
-  document.getElementById("print-summary").textContent = `${cards.length} cards · ${sheetCount} sheets`;
-  document.getElementById("print-actions").hidden = false;
-
-  const button = document.getElementById("print-button");
   const status = document.getElementById("print-status");
-  button.addEventListener("click", () => window.print());
+  status.hidden = false;
   try {
     await Promise.all(images.map(image => image.decode()));
-    status.textContent = "";
-    button.disabled = false;
+    status.hidden = true;
   } catch {
     status.textContent = "Some card images couldn’t load. Reload this page to try again.";
   }

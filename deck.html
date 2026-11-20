@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light">
-    <title>Print Ashes Deck | Board Game Tracker</title>
+    <title>Ashes Deck View | Board Game Tracker</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="print-deck.css">
     <script src="decks.js" defer></script>
@@ -22,18 +22,11 @@
           <a class="back-link" id="gallery-link" href="./index.html">Back to cards</a>
         </nav>
         <div class="page-header detail-header">
-          <h1 id="deck-title">Print Ashes Deck</h1>
+          <h1 id="deck-title">Ashes Deck View</h1>
           <p id="deck-message" hidden>The requested deck isn’t in this library.</p>
         </div>
-        <div class="print-actions" id="print-actions" hidden>
-          <div>
-            <p id="print-summary"></p>
-            <p class="print-instructions">Use portrait Letter or A4 paper and 100% scale for 2.5 × 3.5 in cards.</p>
-          </div>
-          <button type="button" id="print-button" disabled>Print</button>
-          <p id="print-status" role="status">Loading card images…</p>
-        </div>
-        <noscript><p>Enable JavaScript to prepare the print sheets.</p></noscript>
+        <p id="print-status" role="status" hidden>Loading card images…</p>
+        <noscript><p>Enable JavaScript to view this deck.</p></noscript>
       </header>
       <div id="print-sheets"></div>
     </main>
