@@ -50,3 +50,26 @@
   height: 71.428571%;
   transform: translate(-50%, -50%) rotate(90deg);
 }
+
+.setup-reference {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 2.6cqw;
+  padding: 4cqw;
+  border: 1px solid #d7cde9;
+  color: #242036;
+}
+.setup-reference-heading { display: grid; gap: .75cqw; }
+.setup-reference-label { color: #51466b; font: 650 3.75cqw/1.15 system-ui, sans-serif; }
+.setup-reference-title { font: 700 6.4cqw/1 Georgia, serif; }
+.print-card .setup-reference img { border-radius: 1cqw; }
+.setup-reference-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .9cqw 2.5cqw;
+  padding: 0;
+  list-style: none;
+  font: 600 3.55cqw/1.13 system-ui, sans-serif;
+}

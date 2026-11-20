@@ -2,6 +2,7 @@ import { siteUrl } from "/navigation.js";
 
 const imageHost = "https://sw-zone.com/images";
 const gateArtwork = "https://summonerwars.plaidhatgames.com/static/media/PH3600-Cards-Gate.121d8aff.jpg";
+const cardsPerSheet = 9;
 const gates = [
   { name: "Gate (5 life)", life: 5, count: 3 },
   { name: "Starting Gate (10 life)", life: 10, count: 1, starting: 1 },
@@ -114,21 +115,50 @@ function createCardGroup(title, cards) {
   return section;
 }
 
-function createSetupDiagram(deck, cards) {
-  const item = element("li", "setup-diagram");
+function startingCardNames(deck) {
+  const units = [...deck.champions, ...deck.commons].filter(card => card.starting);
+  return [deck.summoner.name, "10-life Gate", ...units.map(card => card.name)];
+}
+
+function createSetupImage(deck, description) {
   const image = element("img");
   image.width = 500;
   image.height = 234;
-  image.alt = `${deck.title} starting positions: ${[deck.summoner.name, "10-life Gate",
-    ...cards.filter(card => card.starting && !card.life).map(card => card.name)].join(", ")}`;
+  image.alt = description;
   image.src = `${imageHost}/starting_setups/${deck.id}.jpg`;
+  return image;
+}
+
+function createSetupDiagram(deck) {
+  const item = element("li", "setup-diagram");
+  const description = `${deck.title} starting positions: ${startingCardNames(deck).join(", ")}`;
+  const image = createSetupImage(deck, description);
   item.append(image, element("p", "card-caption", "Starting setup"));
   return item;
 }
 
+function createSetupReference(deck) {
+  const slot = element("div", "print-card");
+  const face = element("div", "sw-card-face");
+  const reference = element("div", "setup-reference");
+  const heading = element("div", "setup-reference-heading");
+  heading.append(
+    element("p", "setup-reference-label", "Starting setup"),
+    element("h2", "setup-reference-title", deck.title),
+  );
+
+  const image = createSetupImage(deck, `Starting positions for ${deck.title}`);
+  const cards = element("ul", "setup-reference-cards");
+  cards.append(...startingCardNames(deck).map(name => element("li", null, name)));
+  reference.append(heading, image, cards);
+  face.append(reference);
+  slot.append(face);
+  return slot;
+}
+
 function renderGallery(deck) {
   const summary = createCardGroup("Summoner", [deck.summoner]);
-  summary.querySelector("ul").append(createSetupDiagram(deck, [...deck.champions, ...deck.commons]));
+  summary.querySelector("ul").append(createSetupDiagram(deck));
   document.getElementById("card-lists").append(
     summary,
     createCardGroup("Champions", deck.champions),
@@ -162,7 +192,6 @@ function packCardGroups(groups, capacities) {
 }
 
 function arrangePrintSheets(deck) {
-  const cardsPerSheet = 9;
   const firstSheet = [
     deck.summoner,
     ...deck.events.flatMap(card => Array(card.count).fill(card)),
@@ -193,6 +222,7 @@ function arrangePrintSheets(deck) {
 
 async function renderPrintDeck(deck) {
   const layout = arrangePrintSheets(deck);
+  if (layout.at(-1).length === cardsPerSheet) layout.push([]);
   const sheets = document.getElementById("print-sheets");
   const images = [];
 
@@ -208,6 +238,10 @@ async function renderPrintDeck(deck) {
     }
     sheets.append(sheet);
   }
+
+  const reference = createSetupReference(deck);
+  sheets.lastElementChild.append(reference);
+  images.push(reference.querySelector("img"));
 
   const status = document.getElementById("print-status");
   status.hidden = false;
