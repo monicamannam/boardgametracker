@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Ashes Deck | Board Game Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="decks.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="frame site-bar">
+        <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true"></span>Board Game Tracker</a>
+        <a class="site-link" href="https://ashes.live/decks/?preconstructed">Ashes.live</a>
+      </div>
+    </header>
+    <main class="frame detail" id="deck-detail">
+      <nav aria-label="Deck navigation"><a class="back-link" href="./index.html">All decks</a></nav>
+      <header class="page-header detail-header">
+        <h1 id="deck-title">Ashes Deck</h1>
+        <p id="deck-message" hidden>The requested deck isn’t in this library.</p>
+        <a id="source-link" hidden>View deck on Ashes.live</a>
+      </header>
+      <div class="detail-layout" id="deck-content" hidden>
+        <aside class="deck-summary">
+          <div>
+            <h2>Phoenixborn</h2>
+            <a id="phoenixborn-link"></a>
+          </div>
+          <div>
+            <h2>Dice pool</h2>
+            <ul id="dice-pool" class="dice-list"></ul>
+          </div>
+        </aside>
+        <div id="card-lists"></div>
+      </div>
+      <noscript><p>Enable JavaScript to see the cards in this deck.</p></noscript>
+    </main>
+  </body>
+</html>

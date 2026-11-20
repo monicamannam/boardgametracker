@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Browse 60 preconstructed Ashes decks and their card lists.">
+    <meta name="color-scheme" content="light">
+    <title>Ashes Deck Library | Board Game Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="decks.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="frame site-bar">
+        <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true"></span>Board Game Tracker</a>
+        <a class="site-link" href="https://ashes.live/decks/?preconstructed">Ashes.live</a>
+      </div>
+    </header>
+    <main class="frame" id="library">
+      <header class="page-header">
+        <h1>Ashes Deck Library</h1>
+        <p>Browse the preconstructed decks from Ashes.live.</p>
+      </header>
+      <div class="library-tools">
+        <div class="search">
+          <label for="deck-search">Find a deck</label>
+          <input id="deck-search" type="search" placeholder="Search deck or Phoenixborn" autocomplete="off">
+        </div>
+        <p id="result-count" class="result-count" role="status"></p>
+      </div>
+      <ul class="deck-grid" id="deck-list" aria-label="Preconstructed decks"></ul>
+      <p id="no-results" class="empty-state" hidden>Try another deck or Phoenixborn name.</p>
+      <noscript><p>Enable JavaScript to browse the deck library.</p></noscript>
+    </main>
+  </body>
+</html>
