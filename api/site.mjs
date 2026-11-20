@@ -10,6 +10,7 @@ const files = new Map([
   ["lord-of-the-rings-lcg", ["lord-of-the-rings-lcg/index.html", html]],
   ["cards", ["ashes/cards.html", html]],
   ["catalog", ["ashes/catalog.html", html]],
+  ["deckuniques", ["ashes/deckuniques.html", html]],
   ["deck", ["ashes/deck.html", html]],
   ["data", ["ashes/decks.mjs", "text/javascript; charset=utf-8"]],
 ]);

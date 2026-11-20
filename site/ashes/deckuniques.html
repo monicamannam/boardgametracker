@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Ashes Deck Uniques | Board Game Tracker</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/ashes/app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="frame site-bar">
+        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>Board Game Tracker</a>
+      </div>
+    </header>
+    <main class="frame" id="deck-uniques">
+      <header class="page-header">
+        <h1 id="deck-uniques-title">Ashes Deck Uniques</h1>
+        <p>Each card is counted once per deck, including Phoenixborn and conjurations. Decks with the same release date are compared with earlier releases.</p>
+      </header>
+      <table class="catalog-table deck-uniques-table" aria-labelledby="deck-uniques-title">
+        <colgroup>
+          <col class="catalog-card-column">
+          <col class="catalog-count-column">
+          <col class="catalog-count-column">
+          <col>
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col">Deck</th>
+            <th scope="col">New cards</th>
+            <th scope="col">Seen before</th>
+            <th scope="col">New card names</th>
+          </tr>
+        </thead>
+        <tbody id="deck-uniques-rows"></tbody>
+      </table>
+      <noscript><p>Enable JavaScript to see new cards by deck.</p></noscript>
+    </main>
+  </body>
+</html>

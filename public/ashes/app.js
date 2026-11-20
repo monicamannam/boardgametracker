@@ -8,6 +8,7 @@ const releaseMonthFormat = new Intl.DateTimeFormat("en-US", {
 const releaseDayFormat = new Intl.DateTimeFormat("en-US", {
   dateStyle: "medium", timeZone: "UTC",
 });
+const alphabet = new Intl.Collator("en", { sensitivity: "base" });
 // Product images hosted by the Ashes publisher, Plaid Hat Games.
 const diceImageBase = "https://media.plaidhatgames.com/filer_public";
 const diceImages = {
@@ -50,6 +51,16 @@ function cardImageSource(card) {
   return `${cardImageUrl}/${encodeURIComponent(card.stub)}.jpg`;
 }
 
+function createReleaseDate(releaseDate) {
+  const exactDate = releaseDate.length === 10;
+  const day = exactDate ? releaseDate : `${releaseDate}-01`;
+  const formatter = exactDate ? releaseDayFormat : releaseMonthFormat;
+  const label = formatter.format(new Date(`${day}T00:00:00Z`));
+  const release = element("time", "deck-release-date", `Released ${label}`);
+  release.dateTime = releaseDate;
+  return release;
+}
+
 function createDeckTile(deck) {
   const item = element("li", "deck-tile");
   const artwork = element("img", "deck-portrait");
@@ -61,15 +72,7 @@ function createDeckTile(deck) {
   artwork.src = cardImageSource(deck.phoenixborn);
 
   item.append(element("h2", "deck-name", deck.title), artwork);
-  if (deck.releaseDate) {
-    const exactDate = deck.releaseDate.length === 10;
-    const day = exactDate ? deck.releaseDate : `${deck.releaseDate}-01`;
-    const formatter = exactDate ? releaseDayFormat : releaseMonthFormat;
-    const label = formatter.format(new Date(`${day}T00:00:00Z`));
-    const release = element("time", "deck-release-date", `Released ${label}`);
-    release.dateTime = deck.releaseDate;
-    item.append(release);
-  }
+  if (deck.releaseDate) item.append(createReleaseDate(deck.releaseDate));
 
   const actions = element("div", "deck-tile-actions");
   for (const [label, page] of [["Card view", "cards.html"], ["Deck view", "deck.html"]]) {
@@ -87,16 +90,19 @@ function renderLibrary(ashesDecks) {
   list.append(...ashesDecks.map(createDeckTile));
 }
 
+function distinctCards(deck) {
+  const cards = new Map();
+  for (const card of [deck.phoenixborn, ...deck.cards, ...deck.conjurations]) {
+    if (!cards.has(card.stub)) cards.set(card.stub, card);
+  }
+  return [...cards.values()];
+}
+
 function renderCatalog(ashesDecks) {
-  const alphabet = new Intl.Collator("en", { sensitivity: "base" });
   const sortedDecks = [...ashesDecks].sort((a, b) => alphabet.compare(a.title, b.title));
   const byCard = new Map();
   for (const deck of sortedDecks) {
-    const allCards = [deck.phoenixborn, ...deck.cards, ...deck.conjurations];
-    const seen = new Set();
-    for (const card of allCards) {
-      if (seen.has(card.stub)) continue;
-      seen.add(card.stub);
+    for (const card of distinctCards(deck)) {
       if (!byCard.has(card.stub)) byCard.set(card.stub, { card, decks: [] });
       byCard.get(card.stub).decks.push(deck);
     }
@@ -113,7 +119,7 @@ function renderCatalog(ashesDecks) {
     cardCell.append(cardLink);
 
     const deckCell = element("td");
-    const deckLinks = element("ul", "catalog-deck-links");
+    const deckLinks = element("ul", "catalog-links");
     for (const deck of decks) {
       const item = element("li");
       const link = element("a", null, deck.title);
@@ -126,6 +132,50 @@ function renderCatalog(ashesDecks) {
     rows.append(row);
   }
   document.getElementById("catalog-rows").append(rows);
+}
+
+function renderDeckUniques(ashesDecks) {
+  const releases = [...ashesDecks].sort((a, b) =>
+    a.releaseDate.localeCompare(b.releaseDate) || alphabet.compare(a.title, b.title));
+  const decks = releases.map(deck => ({ deck, cards: distinctCards(deck) }));
+  const firstSeen = new Map();
+  for (const { deck, cards } of decks) {
+    for (const card of cards) {
+      if (!firstSeen.has(card.stub)) firstSeen.set(card.stub, deck.releaseDate);
+    }
+  }
+
+  const rows = document.createDocumentFragment();
+  for (const { deck, cards } of decks) {
+    const newCards = cards.filter(card => firstSeen.get(card.stub) === deck.releaseDate)
+      .sort((a, b) => alphabet.compare(a.name, b.name));
+    const deckCell = element("th");
+    deckCell.scope = "row";
+    const deckLink = element("a", null, deck.title);
+    deckLink.href = siteUrl(`/ashes/deck.html?id=${deck.id}`);
+    deckCell.append(deckLink, createReleaseDate(deck.releaseDate));
+
+    const cardCell = element("td");
+    if (newCards.length) {
+      const list = element("ul", "catalog-links");
+      for (const card of newCards) {
+        const item = element("li");
+        const link = element("a", null, card.name);
+        link.href = cardUrl(card);
+        item.append(link);
+        list.append(item);
+      }
+      cardCell.append(list);
+    } else {
+      cardCell.textContent = "None";
+    }
+
+    const row = element("tr");
+    row.append(deckCell, element("td", "catalog-count", newCards.length),
+      element("td", "catalog-count", cards.length - newCards.length), cardCell);
+    rows.append(row);
+  }
+  document.getElementById("deck-uniques-rows").append(rows);
 }
 
 function totalCopies(cards) {
@@ -265,6 +315,7 @@ try {
   const { ashesDecks } = await import(siteUrl("/ashes/decks.js"));
   if (document.getElementById("library")) renderLibrary(ashesDecks);
   if (document.getElementById("catalog")) renderCatalog(ashesDecks);
+  if (document.getElementById("deck-uniques")) renderDeckUniques(ashesDecks);
   if (document.getElementById("deck-detail")) renderDeckPage(ashesDecks, renderGallery);
   if (document.getElementById("print-deck")) renderDeckPage(ashesDecks, renderPrintDeck);
 } catch {

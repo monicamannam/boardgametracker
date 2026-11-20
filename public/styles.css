@@ -111,7 +111,7 @@ main { padding-bottom: 4rem; }
   text-decoration: none;
 }
 .deck-view-action:hover { background: #f0e9fb; text-decoration: underline; }
-.catalog-link { display: inline-block; margin-top: .75rem; font-weight: 650; }
+.library-links { display: flex; flex-wrap: wrap; gap: .35rem 1.25rem; margin-top: .75rem; font-weight: 650; }
 .catalog-table {
   width: 100%;
   table-layout: fixed;
@@ -137,16 +137,19 @@ main { padding-bottom: 4rem; }
 }
 .catalog-table tbody tr:nth-child(even) { background: #faf9fd; }
 .catalog-table tbody tr:last-child > * { border-bottom: 0; }
-.catalog-table th:nth-child(2), .catalog-table .catalog-count { text-align: center; }
+.catalog-table th:nth-child(2),
+.deck-uniques-table th:nth-child(3),
+.catalog-table .catalog-count { text-align: center; }
 .catalog-count { font-variant-numeric: tabular-nums; }
-.catalog-deck-links {
+.catalog-links {
   display: flex;
   flex-wrap: wrap;
   gap: .3rem .9rem;
   padding: 0;
   list-style: none;
 }
-.catalog-deck-links li { max-width: 100%; }
+.catalog-links li { max-width: 100%; }
+.deck-uniques-table .deck-release-date { display: block; margin-top: .25rem; text-align: left; font-weight: 400; }
 .empty-state { padding: 1.5rem; border: 1px dashed #b7aec9; border-radius: .75rem; color: var(--muted); }
 
 .detail { --card-width: 18.75rem; max-width: 66rem; }
