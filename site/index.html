@@ -3,26 +3,26 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Browse 60 preconstructed Ashes decks and their card lists.">
     <meta name="color-scheme" content="light">
-    <title>Ashes Deck Library | Board Game Tracker</title>
-    <link rel="stylesheet" href="styles.css">
-    <script type="module" src="/app.js"></script>
+    <title>Games | Board Game Tracker</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/navigation.js"></script>
   </head>
   <body>
     <header class="site-header">
       <div class="frame site-bar">
-        <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true"></span>Board Game Tracker</a>
+        <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>Board Game Tracker</a>
       </div>
     </header>
-    <main class="frame" id="library">
+    <main class="frame">
       <header class="page-header">
-        <h1>Ashes Deck Library</h1>
-        <p>Browse the preconstructed decks from Ashes.live.</p>
+        <h1>Games</h1>
       </header>
-      <p id="result-count" class="result-count"></p>
-      <ul class="deck-grid" id="deck-list" aria-label="Preconstructed decks"></ul>
-      <noscript><p>Enable JavaScript to browse the deck library.</p></noscript>
+      <ul class="tile-grid">
+        <li><a class="game-link" href="/ashes/">Ashes</a></li>
+        <li><a class="game-link" href="/summoner-wars/">Summoner Wars</a></li>
+        <li><a class="game-link" href="/lord-of-the-rings-lcg/">The Lord of the Rings: The Card Game</a></li>
+      </ul>
     </main>
   </body>
 </html>

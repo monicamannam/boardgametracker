@@ -7,9 +7,17 @@
     "api/site.mjs": { "includeFiles": "site/**" }
   },
   "rewrites": [
-    { "source": "/", "destination": "/api/site?view=index" },
-    { "source": "/:view(index|cards|deck).html", "destination": "/api/site?view=:view" },
-    { "source": "/:view(index|cards|deck)", "destination": "/api/site?view=:view" },
-    { "source": "/decks.js", "destination": "/api/site?view=data" }
+    { "source": "/", "destination": "/api/site?view=home" },
+    { "source": "/index.html", "destination": "/api/site?view=home" },
+    { "source": "/index", "destination": "/api/site?view=home" },
+    { "source": "/:view(ashes|summoner-wars|lord-of-the-rings-lcg)", "destination": "/api/site?view=:view" },
+    { "source": "/:view(ashes|summoner-wars|lord-of-the-rings-lcg)/", "destination": "/api/site?view=:view" },
+    { "source": "/:view(ashes|summoner-wars|lord-of-the-rings-lcg)/index.html", "destination": "/api/site?view=:view" },
+    { "source": "/ashes/:view(cards|deck).html", "destination": "/api/site?view=:view" },
+    { "source": "/ashes/:view(cards|deck)", "destination": "/api/site?view=:view" },
+    { "source": "/ashes/decks.js", "destination": "/api/site?view=data" },
+    { "source": "/:view(cards|deck).html", "destination": "/api/site?view=legacy-:view" },
+    { "source": "/:view(cards|deck)", "destination": "/api/site?view=legacy-:view" },
+    { "source": "/decks.js", "destination": "/api/site?view=legacy-data" }
   ]
 }

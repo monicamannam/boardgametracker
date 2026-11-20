@@ -2,11 +2,20 @@ import { createHash, timingSafeEqual } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
+const html = "text/html; charset=utf-8";
 const files = new Map([
-  ["index", ["index.html", "text/html; charset=utf-8"]],
-  ["cards", ["cards.html", "text/html; charset=utf-8"]],
-  ["deck", ["deck.html", "text/html; charset=utf-8"]],
-  ["data", ["decks.mjs", "text/javascript; charset=utf-8"]],
+  ["home", ["index.html", html]],
+  ["ashes", ["ashes/index.html", html]],
+  ["summoner-wars", ["summoner-wars/index.html", html]],
+  ["lord-of-the-rings-lcg", ["lord-of-the-rings-lcg/index.html", html]],
+  ["cards", ["ashes/cards.html", html]],
+  ["deck", ["ashes/deck.html", html]],
+  ["data", ["ashes/decks.mjs", "text/javascript; charset=utf-8"]],
+]);
+const legacyPaths = new Map([
+  ["legacy-cards", "/ashes/cards.html"],
+  ["legacy-deck", "/ashes/deck.html"],
+  ["legacy-data", "/ashes/decks.js"],
 ]);
 
 const privateHeaders = {
@@ -38,7 +47,17 @@ export async function GET(request) {
     return errorResponse(request, 403, "Access denied.");
   }
 
-  const file = files.get(searchParams.get("view"));
+  const view = searchParams.get("view");
+  const legacyPath = legacyPaths.get(view);
+  if (legacyPath) {
+    searchParams.delete("view");
+    return new Response(null, {
+      status: 302,
+      headers: { ...privateHeaders, Location: `${legacyPath}?${searchParams}` },
+    });
+  }
+
+  const file = files.get(view);
   if (!file) return errorResponse(request, 404, "Page not found.");
 
   const [filename, contentType] = file;

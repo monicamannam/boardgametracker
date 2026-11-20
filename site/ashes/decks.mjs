@@ -1,8 +1,42 @@
 // Deck metadata from Ashes.live, v2/decks (Preconstructed Only).
 // Card names and game content © Plaid Hat Games.
+// Dates describe the Reborn or Ascendancy products represented here.
+// Where sources document a launch window, keep month precision.
+const releaseDates = {
+  // https://www.plaidhatgames.com/news/2026/07/01/natural-magic-release-date-and-op-update/
+  naturalMagic: "2026-07",
+  // https://ashes-ascendancy.backerkit.com/hosted_preorders/project_updates
+  ascendancyStarter: "2026-01-21",
+  // https://boardgamegeek.com/boardgameversion/775793/english-edition
+  endOfArgaia: "2025-10-01",
+  // https://boardgamegeek.com/thread/3484228/the-flood-of-mooncove-availability
+  floodOfMoonCove: "2025-04-11",
+  // https://www.youtube.com/watch?v=AQhXwivpu10
+  spawnOfShadowreck: "2024-10",
+  // https://www.plaidhatgames.com/news/2024/04/19/the-siege-of-lordswall-preview-6/
+  siegeOfLordswall: "2024-05",
+  // https://www.plaidhatgames.com/news/2024/01/25/ashes-organized-play-and-faq-update-v5/
+  blightOfNeverset: "2024-01",
+  // https://www.plaidhatgames.com/news/2023/08/31/august-2023/
+  frostwildScourge: "2023-08",
+  // https://www.plaidhatgames.com/news/2023/02/22/corpse-viros/
+  corpseOfViros: "2023-03",
+  // https://www.plaidhatgames.com/news/2022/08/19/august-2022-news/
+  scholarAndOcean: "2022-08",
+  // https://www.plaidhatgames.com/news/2022/05/16/ashcon2/
+  artistAndQueen: "2022-05",
+  // https://www.plaidhatgames.com/news/2021/10/01/starter-set-and-reborn-delays/
+  messengerAndSurvivors: "2022-01",
+  // https://www.plaidhatgames.com/news/2021/06/02/ashes-june-update/
+  breakerOfFate: "2021-06",
+  // https://www.plaidhatgames.com/news/2021/03/26/ashes-reborn-available-now/
+  rebornRelaunch: "2021-03-26",
+};
+
 export const ashesDecks = [
   {
     id: 71331,
+    releaseDate: releaseDates.naturalMagic,
     title: "The Shaper of Storms",
     phoenixborn: {"name":"Kanna Galeheart","stub":"kanna-galeheart"},
     dice: [{"count":5,"name":"natural"},{"count":5,"name":"astral"}],
@@ -27,6 +61,7 @@ export const ashesDecks = [
   },
   {
     id: 71330,
+    releaseDate: releaseDates.naturalMagic,
     title: "The Garden of Brilliance",
     phoenixborn: {"name":"Maeve Luminvale","stub":"maeve-luminvale"},
     dice: [{"count":5,"name":"natural"},{"count":5,"name":"artifice"}],
@@ -52,6 +87,7 @@ export const ashesDecks = [
   },
   {
     id: 66206,
+    releaseDate: releaseDates.ascendancyStarter,
     title: "The Spark of Invention",
     phoenixborn: {"name":"Issa Brightmore","stub":"issa-brightmore"},
     dice: [{"count":10,"name":"artifice"}],
@@ -74,6 +110,7 @@ export const ashesDecks = [
   },
   {
     id: 66207,
+    releaseDate: releaseDates.ascendancyStarter,
     title: "The Sentinels of Skies",
     phoenixborn: {"name":"Arren Frostpeak","stub":"arren-frostpeak"},
     dice: [{"count":10,"name":"astral"}],
@@ -96,6 +133,7 @@ export const ashesDecks = [
   },
   {
     id: 65583,
+    releaseDate: releaseDates.endOfArgaia,
     title: "The End of Argaia: Tristan",
     phoenixborn: {"name":"Tristan Darkwater","stub":"tristan-darkwater"},
     dice: [{"count":10,"name":"time"}],
@@ -120,6 +158,7 @@ export const ashesDecks = [
   },
   {
     id: 65582,
+    releaseDate: releaseDates.endOfArgaia,
     title: "The End of Argaia: Rowan",
     phoenixborn: {"name":"Rowan Umberend","stub":"rowan-umberend"},
     dice: [{"count":10,"name":"time"}],
@@ -143,6 +182,7 @@ export const ashesDecks = [
   },
   {
     id: 65581,
+    releaseDate: releaseDates.endOfArgaia,
     title: "The End of Argaia: Orrick",
     phoenixborn: {"name":"Orrick Gilstream","stub":"orrick-gilstream"},
     dice: [{"count":10,"name":"time"}],
@@ -166,6 +206,7 @@ export const ashesDecks = [
   },
   {
     id: 65580,
+    releaseDate: releaseDates.endOfArgaia,
     title: "The End of Argaia: Jericho",
     phoenixborn: {"name":"Jericho, Reborn","stub":"jericho-reborn"},
     dice: [{"count":10,"name":"time"}],
@@ -189,6 +230,7 @@ export const ashesDecks = [
   },
   {
     id: 61893,
+    releaseDate: releaseDates.floodOfMoonCove,
     title: "The Flood of Moon Cove: Namine",
     phoenixborn: {"name":"Namine Hymntide","stub":"namine-hymntide"},
     dice: [{"count":10,"name":"sympathy"}],
@@ -211,6 +253,7 @@ export const ashesDecks = [
   },
   {
     id: 61892,
+    releaseDate: releaseDates.floodOfMoonCove,
     title: "The Flood of Moon Cove: Harold",
     phoenixborn: {"name":"Harold Westraven","stub":"harold-westraven"},
     dice: [{"count":10,"name":"sympathy"}],
@@ -234,6 +277,7 @@ export const ashesDecks = [
   },
   {
     id: 61891,
+    releaseDate: releaseDates.floodOfMoonCove,
     title: "The Flood of Moon Cove: Fiona",
     phoenixborn: {"name":"Fiona Mercywind","stub":"fiona-mercywind"},
     dice: [{"count":10,"name":"sympathy"}],
@@ -259,6 +303,7 @@ export const ashesDecks = [
   },
   {
     id: 61890,
+    releaseDate: releaseDates.floodOfMoonCove,
     title: "The Flood of Moon Cove: Echo",
     phoenixborn: {"name":"Echo Greystorm","stub":"echo-greystorm"},
     dice: [{"count":10,"name":"sympathy"}],
@@ -281,6 +326,7 @@ export const ashesDecks = [
   },
   {
     id: 56694,
+    releaseDate: releaseDates.spawnOfShadowreck,
     title: "The Spawn of Shadowreck: Victoria",
     phoenixborn: {"name":"Victoria Glassfire","stub":"victoria-glassfire"},
     dice: [{"count":10,"name":"illusion"}],
@@ -303,6 +349,7 @@ export const ashesDecks = [
   },
   {
     id: 56693,
+    releaseDate: releaseDates.spawnOfShadowreck,
     title: "The Spawn of Shadowreck: Sembali",
     phoenixborn: {"name":"Sembali Grimtongue","stub":"sembali-grimtongue"},
     dice: [{"count":10,"name":"illusion"}],
@@ -325,6 +372,7 @@ export const ashesDecks = [
   },
   {
     id: 56692,
+    releaseDate: releaseDates.spawnOfShadowreck,
     title: "The Spawn of Shadowreck: Rimea",
     phoenixborn: {"name":"Rimea Careworn","stub":"rimea-careworn"},
     dice: [{"count":10,"name":"illusion"}],
@@ -348,6 +396,7 @@ export const ashesDecks = [
   },
   {
     id: 56691,
+    releaseDate: releaseDates.spawnOfShadowreck,
     title: "The Spawn of Shadowreck: Hope",
     phoenixborn: {"name":"Hope Everthorn","stub":"hope-everthorn"},
     dice: [{"count":10,"name":"illusion"}],
@@ -371,6 +420,7 @@ export const ashesDecks = [
   },
   {
     id: 52486,
+    releaseDate: releaseDates.siegeOfLordswall,
     title: "The Siege of Lordswall: Xander",
     phoenixborn: {"name":"Xander Heartsblood","stub":"xander-heartsblood"},
     dice: [{"count":10,"name":"divine"}],
@@ -394,6 +444,7 @@ export const ashesDecks = [
   },
   {
     id: 52485,
+    releaseDate: releaseDates.siegeOfLordswall,
     title: "The Siege of Lordswall: Odette",
     phoenixborn: {"name":"Odette Diamondcrest","stub":"odette-diamondcrest"},
     dice: [{"count":10,"name":"divine"}],
@@ -417,6 +468,7 @@ export const ashesDecks = [
   },
   {
     id: 52484,
+    releaseDate: releaseDates.siegeOfLordswall,
     title: "The Siege of Lordswall: James",
     phoenixborn: {"name":"James Endersight","stub":"james-endersight"},
     dice: [{"count":10,"name":"divine"}],
@@ -440,6 +492,7 @@ export const ashesDecks = [
   },
   {
     id: 52483,
+    releaseDate: releaseDates.siegeOfLordswall,
     title: "The Siege of Lordswall: Dimona",
     phoenixborn: {"name":"Dimona Odinstar","stub":"dimona-odinstar"},
     dice: [{"count":10,"name":"divine"}],
@@ -465,6 +518,7 @@ export const ashesDecks = [
   },
   {
     id: 48383,
+    releaseDate: releaseDates.blightOfNeverset,
     title: "The Blight of Neverset: Saria",
     phoenixborn: {"name":"Saria Guideman","stub":"saria-guideman"},
     dice: [{"count":10,"name":"charm"}],
@@ -488,6 +542,7 @@ export const ashesDecks = [
   },
   {
     id: 48381,
+    releaseDate: releaseDates.blightOfNeverset,
     title: "The Blight of Neverset: Maeoni",
     phoenixborn: {"name":"Maeoni Viper","stub":"maeoni-viper"},
     dice: [{"count":10,"name":"charm"}],
@@ -511,6 +566,7 @@ export const ashesDecks = [
   },
   {
     id: 48379,
+    releaseDate: releaseDates.blightOfNeverset,
     title: "The Blight of Neverset: Leo",
     phoenixborn: {"name":"Leo Sunshadow","stub":"leo-sunshadow"},
     dice: [{"count":10,"name":"charm"}],
@@ -535,6 +591,7 @@ export const ashesDecks = [
   },
   {
     id: 48378,
+    releaseDate: releaseDates.blightOfNeverset,
     title: "The Blight of Neverset: Astrea",
     phoenixborn: {"name":"Astrea","stub":"astrea"},
     dice: [{"count":10,"name":"charm"}],
@@ -558,6 +615,7 @@ export const ashesDecks = [
   },
   {
     id: 44880,
+    releaseDate: releaseDates.frostwildScourge,
     title: "The Frostwild Scourge: Rin",
     phoenixborn: {"name":"Rin Northfell","stub":"rin-northfell"},
     dice: [{"count":10,"name":"natural"}],
@@ -583,6 +641,7 @@ export const ashesDecks = [
   },
   {
     id: 44878,
+    releaseDate: releaseDates.frostwildScourge,
     title: "The Frostwild Scourge: Lulu",
     phoenixborn: {"name":"Lulu Firststone","stub":"lulu-firststone"},
     dice: [{"count":10,"name":"natural"}],
@@ -608,6 +667,7 @@ export const ashesDecks = [
   },
   {
     id: 44879,
+    releaseDate: releaseDates.frostwildScourge,
     title: "The Frostwild Scourge: Koji",
     phoenixborn: {"name":"Koji Wolfcub","stub":"koji-wolfcub"},
     dice: [{"count":10,"name":"natural"}],
@@ -633,6 +693,7 @@ export const ashesDecks = [
   },
   {
     id: 44877,
+    releaseDate: releaseDates.frostwildScourge,
     title: "The Frostwild Scourge: Aradel",
     phoenixborn: {"name":"Aradel Summergaard","stub":"aradel-summergaard"},
     dice: [{"count":10,"name":"natural"}],
@@ -657,6 +718,7 @@ export const ashesDecks = [
   },
   {
     id: 38663,
+    releaseDate: releaseDates.corpseOfViros,
     title: "The Corpse of Viros: Noah",
     phoenixborn: {"name":"Noah Redmoon","stub":"noah-redmoon"},
     dice: [{"count":10,"name":"ceremonial"}],
@@ -680,6 +742,7 @@ export const ashesDecks = [
   },
   {
     id: 38662,
+    releaseDate: releaseDates.corpseOfViros,
     title: "The Corpse of Viros: Jessa",
     phoenixborn: {"name":"Jessa Na Ni","stub":"jessa-na-ni"},
     dice: [{"count":10,"name":"ceremonial"}],
@@ -703,6 +766,7 @@ export const ashesDecks = [
   },
   {
     id: 38661,
+    releaseDate: releaseDates.corpseOfViros,
     title: "The Corpse of Viros: Coal",
     phoenixborn: {"name":"Coal Roarkwin","stub":"coal-roarkwin"},
     dice: [{"count":10,"name":"ceremonial"}],
@@ -726,6 +790,7 @@ export const ashesDecks = [
   },
   {
     id: 38660,
+    releaseDate: releaseDates.corpseOfViros,
     title: "The Corpse of Viros: Brennen",
     phoenixborn: {"name":"Brennen Blackcloud","stub":"brennen-blackcloud"},
     dice: [{"count":10,"name":"ceremonial"}],
@@ -749,6 +814,7 @@ export const ashesDecks = [
   },
   {
     id: 29776,
+    releaseDate: releaseDates.scholarAndOcean,
     title: "The Scholar of Ruin",
     phoenixborn: {"name":"Rowan Umberend","stub":"rowan-umberend"},
     dice: [{"count":5,"name":"ceremonial"},{"count":5,"name":"time"}],
@@ -773,6 +839,7 @@ export const ashesDecks = [
   },
   {
     id: 29775,
+    releaseDate: releaseDates.scholarAndOcean,
     title: "The Ocean's Guard",
     phoenixborn: {"name":"Tristan Darkwater","stub":"tristan-darkwater"},
     dice: [{"count":5,"name":"sympathy"},{"count":5,"name":"time"}],
@@ -797,6 +864,7 @@ export const ashesDecks = [
   },
   {
     id: 22419,
+    releaseDate: releaseDates.artistAndQueen,
     title: "The Artist of Dreams",
     phoenixborn: {"name":"Hope Everthorn","stub":"hope-everthorn"},
     dice: [{"count":5,"name":"illusion"},{"count":5,"name":"time"}],
@@ -819,6 +887,7 @@ export const ashesDecks = [
   },
   {
     id: 22417,
+    releaseDate: releaseDates.artistAndQueen,
     title: "The Queen of Lightning",
     phoenixborn: {"name":"Dimona Odinstar","stub":"dimona-odinstar"},
     dice: [{"count":5,"name":"divine"},{"count":5,"name":"time"}],
@@ -841,6 +910,7 @@ export const ashesDecks = [
   },
   {
     id: 14310,
+    releaseDate: releaseDates.messengerAndSurvivors,
     title: "The Messenger of Peace",
     phoenixborn: {"name":"Orrick Gilstream","stub":"orrick-gilstream"},
     dice: [{"count":5,"name":"charm"},{"count":5,"name":"time"}],
@@ -864,6 +934,7 @@ export const ashesDecks = [
   },
   {
     id: 14309,
+    releaseDate: releaseDates.messengerAndSurvivors,
     title: "The Gorrenrock Survivors",
     phoenixborn: {"name":"Lulu Firststone","stub":"lulu-firststone"},
     dice: [{"count":5,"name":"natural"},{"count":5,"name":"time"}],
@@ -887,6 +958,7 @@ export const ashesDecks = [
   },
   {
     id: 8598,
+    releaseDate: releaseDates.breakerOfFate,
     title: "The Breaker of Fate",
     phoenixborn: {"name":"Jericho, Reborn","stub":"jericho-reborn"},
     dice: [{"count":10,"name":"time"}],
@@ -909,6 +981,7 @@ export const ashesDecks = [
   },
   {
     id: 7706,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Protector of Argaia",
     phoenixborn: {"name":"Fiona Mercywind","stub":"fiona-mercywind"},
     dice: [{"count":5,"name":"charm"},{"count":5,"name":"sympathy"}],
@@ -932,6 +1005,7 @@ export const ashesDecks = [
   },
   {
     id: 7705,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Grave King",
     phoenixborn: {"name":"James Endersight","stub":"james-endersight"},
     dice: [{"count":5,"name":"ceremonial"},{"count":5,"name":"divine"}],
@@ -953,6 +1027,7 @@ export const ashesDecks = [
   },
   {
     id: 7704,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The King of Titans",
     phoenixborn: {"name":"Xander Heartsblood","stub":"xander-heartsblood"},
     dice: [{"count":5,"name":"natural"},{"count":5,"name":"divine"}],
@@ -978,6 +1053,7 @@ export const ashesDecks = [
   },
   {
     id: 7703,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Ghost Guardian",
     phoenixborn: {"name":"Rimea Careworn","stub":"rimea-careworn"},
     dice: [{"count":5,"name":"illusion"},{"count":5,"name":"sympathy"}],
@@ -1002,6 +1078,7 @@ export const ashesDecks = [
   },
   {
     id: 7702,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Spirits of Memoria",
     phoenixborn: {"name":"Sembali Grimtongue","stub":"sembali-grimtongue"},
     dice: [{"count":5,"name":"illusion"},{"count":5,"name":"divine"}],
@@ -1024,6 +1101,7 @@ export const ashesDecks = [
   },
   {
     id: 7701,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Demons of Darmas",
     phoenixborn: {"name":"Harold Westraven","stub":"harold-westraven"},
     dice: [{"count":5,"name":"ceremonial"},{"count":5,"name":"sympathy"}],
@@ -1046,6 +1124,7 @@ export const ashesDecks = [
   },
   {
     id: 7700,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Boy Among Wolves",
     phoenixborn: {"name":"Koji Wolfcub","stub":"koji-wolfcub"},
     dice: [{"count":5,"name":"natural"},{"count":5,"name":"sympathy"}],
@@ -1071,6 +1150,7 @@ export const ashesDecks = [
   },
   {
     id: 7699,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Goddess of Ishra",
     phoenixborn: {"name":"Astrea","stub":"astrea"},
     dice: [{"count":5,"name":"charm"},{"count":5,"name":"divine"}],
@@ -1094,6 +1174,7 @@ export const ashesDecks = [
   },
   {
     id: 7698,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Masters of Gravity",
     phoenixborn: {"name":"Echo Greystorm","stub":"echo-greystorm"},
     dice: [{"count":5,"name":"divine"},{"count":5,"name":"sympathy"}],
@@ -1116,6 +1197,7 @@ export const ashesDecks = [
   },
   {
     id: 7697,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Law of Lions",
     phoenixborn: {"name":"Odette Diamondcrest","stub":"odette-diamondcrest"},
     dice: [{"count":10,"name":"divine"}],
@@ -1138,6 +1220,7 @@ export const ashesDecks = [
   },
   {
     id: 7696,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Song of Soaksend",
     phoenixborn: {"name":"Namine Hymntide","stub":"namine-hymntide"},
     dice: [{"count":10,"name":"sympathy"}],
@@ -1161,6 +1244,7 @@ export const ashesDecks = [
   },
   {
     id: 7695,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Duchess of Deception",
     phoenixborn: {"name":"Victoria Glassfire","stub":"victoria-glassfire"},
     dice: [{"count":10,"name":"illusion"}],
@@ -1183,6 +1267,7 @@ export const ashesDecks = [
   },
   {
     id: 7694,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Roaring Rose",
     phoenixborn: {"name":"Leo Sunshadow","stub":"leo-sunshadow"},
     dice: [{"count":10,"name":"charm"}],
@@ -1206,6 +1291,7 @@ export const ashesDecks = [
   },
   {
     id: 7693,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Frostdale Giants",
     phoenixborn: {"name":"Rin Northfell","stub":"rin-northfell"},
     dice: [{"count":10,"name":"natural"}],
@@ -1229,6 +1315,7 @@ export const ashesDecks = [
   },
   {
     id: 7692,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Children of Blackcloud",
     phoenixborn: {"name":"Brennen Blackcloud","stub":"brennen-blackcloud"},
     dice: [{"count":10,"name":"ceremonial"}],
@@ -1250,6 +1337,7 @@ export const ashesDecks = [
   },
   {
     id: 7691,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Cloudsea Siren",
     phoenixborn: {"name":"Saria Guideman","stub":"saria-guideman"},
     dice: [{"count":5,"name":"charm"},{"count":5,"name":"illusion"}],
@@ -1272,6 +1360,7 @@ export const ashesDecks = [
   },
   {
     id: 7690,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Shadows of Viros",
     phoenixborn: {"name":"Noah Redmoon","stub":"noah-redmoon"},
     dice: [{"count":5,"name":"ceremonial"},{"count":5,"name":"illusion"}],
@@ -1295,6 +1384,7 @@ export const ashesDecks = [
   },
   {
     id: 7689,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Snakes in Silver",
     phoenixborn: {"name":"Maeoni Viper","stub":"maeoni-viper"},
     dice: [{"count":5,"name":"charm"},{"count":5,"name":"natural"}],
@@ -1317,6 +1407,7 @@ export const ashesDecks = [
   },
   {
     id: 7688,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Bloodwoods Queen",
     phoenixborn: {"name":"Jessa Na Ni","stub":"jessa-na-ni"},
     dice: [{"count":5,"name":"ceremonial"},{"count":5,"name":"charm"}],
@@ -1338,6 +1429,7 @@ export const ashesDecks = [
   },
   {
     id: 7687,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Men of Iron",
     phoenixborn: {"name":"Coal Roarkwin","stub":"coal-roarkwin"},
     dice: [{"count":5,"name":"ceremonial"},{"count":5,"name":"natural"}],
@@ -1359,6 +1451,7 @@ export const ashesDecks = [
   },
   {
     id: 7686,
+    releaseDate: releaseDates.rebornRelaunch,
     title: "The Mist Guardian",
     phoenixborn: {"name":"Aradel Summergaard","stub":"aradel-summergaard"},
     dice: [{"count":5,"name":"illusion"},{"count":5,"name":"natural"}],

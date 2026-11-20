@@ -49,8 +49,7 @@ main { padding-bottom: 4rem; }
   line-height: 1.06;
 }
 .page-header p { color: var(--muted); margin-top: .8rem; }
-.result-count { color: var(--muted); margin-bottom: .75rem; }
-.deck-grid {
+.tile-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: stretch;
@@ -58,6 +57,19 @@ main { padding-bottom: 4rem; }
   padding: 0;
   list-style: none;
 }
+.game-link {
+  display: flex;
+  align-items: center;
+  min-height: 7.5rem;
+  height: 100%;
+  padding: 1.35rem;
+  border: 1px solid var(--line);
+  border-radius: .75rem;
+  background: #fff;
+  font: 500 clamp(1.5rem, 2.6vw, 2.25rem)/1.18 Georgia, serif;
+  text-decoration: none;
+}
+.game-link:hover { border-color: #9c87c5; background: #fcfaff; text-decoration: underline; }
 .deck-tile {
   display: flex;
   flex-direction: column;
@@ -78,6 +90,7 @@ main { padding-bottom: 4rem; }
   background: #eeedf4;
   object-fit: contain;
 }
+.deck-release-date { color: var(--muted); font-size: .9375rem; text-align: center; }
 .deck-tile-actions {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -188,7 +201,7 @@ main { padding-bottom: 4rem; }
   .deck-summary { grid-template-columns: minmax(0, var(--card-width)) minmax(0, 1fr); }
 }
 @media (max-width: 55rem) {
-  .deck-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 40rem) {
   .frame { width: calc(100% - 2rem); }
@@ -198,5 +211,5 @@ main { padding-bottom: 4rem; }
   .card-gallery { padding-inline: .8rem; }
 }
 @media (max-width: 32rem) {
-  .deck-grid { grid-template-columns: minmax(0, 1fr); }
+  .tile-grid { grid-template-columns: minmax(0, 1fr); }
 }

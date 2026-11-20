@@ -1,6 +1,13 @@
+import { siteUrl } from "/navigation.js";
+
 const ashesUrl = "https://ashes.live";
 const cardImageUrl = "https://cdn.ashes.live/images/cards";
-const pageKey = new URLSearchParams(window.location.search).get("key");
+const releaseMonthFormat = new Intl.DateTimeFormat("en-US", {
+  month: "long", year: "numeric", timeZone: "UTC",
+});
+const releaseDayFormat = new Intl.DateTimeFormat("en-US", {
+  dateStyle: "medium", timeZone: "UTC",
+});
 // Product images hosted by the Ashes publisher, Plaid Hat Games.
 const diceImageBase = "https://media.plaidhatgames.com/filer_public";
 const diceImages = {
@@ -43,14 +50,6 @@ function cardImageSource(card) {
   return `${cardImageUrl}/${encodeURIComponent(card.stub)}.jpg`;
 }
 
-function siteUrl(path) {
-  const url = new URL(path, window.location.href);
-  if (url.origin === window.location.origin && pageKey !== null) {
-    url.searchParams.set("key", pageKey);
-  }
-  return url.href;
-}
-
 function createDeckTile(deck) {
   const item = element("li", "deck-tile");
   const artwork = element("img", "deck-portrait");
@@ -61,22 +60,31 @@ function createDeckTile(deck) {
   artwork.decoding = "async";
   artwork.src = cardImageSource(deck.phoenixborn);
 
+  item.append(element("h2", "deck-name", deck.title), artwork);
+  if (deck.releaseDate) {
+    const exactDate = deck.releaseDate.length === 10;
+    const day = exactDate ? deck.releaseDate : `${deck.releaseDate}-01`;
+    const formatter = exactDate ? releaseDayFormat : releaseMonthFormat;
+    const label = formatter.format(new Date(`${day}T00:00:00Z`));
+    const release = element("time", "deck-release-date", `Released ${label}`);
+    release.dateTime = deck.releaseDate;
+    item.append(release);
+  }
+
   const actions = element("div", "deck-tile-actions");
   for (const [label, page] of [["Card view", "cards.html"], ["Deck view", "deck.html"]]) {
     const link = element("a", "deck-view-action", label);
-    link.href = siteUrl(`/${page}?id=${deck.id}`);
+    link.href = siteUrl(`/ashes/${page}?id=${deck.id}`);
     link.setAttribute("aria-label", `${label} for ${deck.title}`);
     actions.append(link);
   }
-  item.append(element("h2", "deck-name", deck.title), artwork, actions);
+  item.append(actions);
   return item;
 }
 
 function renderLibrary(ashesDecks) {
   const list = document.getElementById("deck-list");
-  const count = document.getElementById("result-count");
   list.append(...ashesDecks.map(createDeckTile));
-  count.textContent = `${ashesDecks.length} ${ashesDecks.length === 1 ? "deck" : "decks"}`;
 }
 
 function totalCopies(cards) {
@@ -212,12 +220,8 @@ async function renderPrintDeck(deck) {
   }
 }
 
-for (const link of document.querySelectorAll("a[href]")) {
-  link.href = siteUrl(link.href);
-}
-
 try {
-  const { ashesDecks } = await import(siteUrl("/decks.js"));
+  const { ashesDecks } = await import(siteUrl("/ashes/decks.js"));
   if (document.getElementById("library")) renderLibrary(ashesDecks);
   if (document.getElementById("deck-detail")) renderDeckPage(ashesDecks, renderGallery);
   if (document.getElementById("print-deck")) renderDeckPage(ashesDecks, renderPrintDeck);
