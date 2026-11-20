@@ -163,9 +163,12 @@ function packCardGroups(groups, capacities) {
 
 function arrangePrintSheets(deck) {
   const cardsPerSheet = 9;
-  const factionCards = [...deck.commons, ...deck.events, ...deck.champions];
+  const firstSheet = [
+    deck.summoner,
+    ...deck.events.flatMap(card => Array(card.count).fill(card)),
+  ];
   const groups = [];
-  for (const card of factionCards) {
+  for (const card of [...deck.commons, ...deck.champions]) {
     // Keep every copy together, including any copy used in setup.
     for (let remaining = card.count; remaining > 0; remaining -= cardsPerSheet) {
       groups.push(Array(Math.min(remaining, cardsPerSheet)).fill(card));
@@ -173,22 +176,19 @@ function arrangePrintSheets(deck) {
   }
   groups.sort((a, b) => b.length - a.length);
 
-  const cardCount = 1 + factionCards.reduce((total, card) => total + card.count, 0);
+  const cardCount = groups.reduce((total, group) => total + group.length, 0);
+  if (!cardCount) return [firstSheet];
   const minSheets = Math.ceil(cardCount / cardsPerSheet);
   const capacities = Array(minSheets).fill(cardsPerSheet);
-  // Reserve the first slot of the last sheet for the Summoner.
-  capacities[minSheets - 1] = (cardCount - 1) % cardsPerSheet;
+  capacities[minSheets - 1] = cardCount % cardsPerSheet || cardsPerSheet;
   let sheets = packCardGroups(groups, capacities);
 
   // If full sheets are impossible, allow blank slots before adding another sheet.
   for (let sheetCount = minSheets; !sheets; sheetCount += 1) {
-    const flexibleCapacities = Array(sheetCount).fill(cardsPerSheet);
-    flexibleCapacities[sheetCount - 1] -= 1;
-    sheets = packCardGroups(groups, flexibleCapacities);
+    sheets = packCardGroups(groups, Array(sheetCount).fill(cardsPerSheet));
   }
 
-  sheets.at(-1).unshift(deck.summoner);
-  return sheets;
+  return [firstSheet, ...sheets];
 }
 
 async function renderPrintDeck(deck) {
