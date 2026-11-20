@@ -6,7 +6,7 @@ const files = new Map([
   ["index", ["index.html", "text/html; charset=utf-8"]],
   ["cards", ["cards.html", "text/html; charset=utf-8"]],
   ["deck", ["deck.html", "text/html; charset=utf-8"]],
-  ["data", ["decks.js", "text/javascript; charset=utf-8"]],
+  ["data", ["decks.mjs", "text/javascript; charset=utf-8"]],
 ]);
 
 const privateHeaders = {
