@@ -73,6 +73,10 @@ function createCardFace(card, lazy = false) {
   return face;
 }
 
+function drawPileCount(card) {
+  return card.count - (card.starting ?? 0);
+}
+
 function createGalleryCard(card) {
   const item = element("li");
   const entry = element(card.life ? "div" : "a", "card-link");
@@ -88,9 +92,14 @@ function createGalleryCard(card) {
   art.append(face);
 
   const caption = element("span", "card-caption");
+  let quantity = `×${card.count}`;
+  if (card.starting) {
+    const drawCount = drawPileCount(card);
+    quantity = drawCount ? `×${drawCount} + ${card.starting} starting` : `×${card.starting} starting`;
+  }
   caption.append(
     element("span", "card-title", card.name),
-    element("span", "card-quantity", `×${card.count}`),
+    element("span", "card-quantity", quantity),
   );
   entry.append(art, caption);
   item.append(entry);
@@ -135,7 +144,7 @@ function expandCopies(cards, copiesFor) {
 
 async function renderPrintDeck(deck) {
   const factionCards = [...deck.champions, ...deck.commons, ...deck.events, ...gates];
-  const drawPile = expandCopies(factionCards, card => card.count - (card.starting ?? 0));
+  const drawPile = expandCopies(factionCards, drawPileCount);
   const startingCards = expandCopies(factionCards, card => card.starting ?? 0);
   const cards = [...drawPile, deck.summoner, ...startingCards];
   const cardsPerSheet = 9;
