@@ -30,10 +30,10 @@
   .site-header, .print-controls { display: none !important; }
   .print-frame { width: auto; max-width: none; padding: 0; }
   .print-sheet {
-    grid-template-columns: repeat(3, 2.5in);
-    grid-template-rows: repeat(3, 3.5in);
-    width: 7.5in;
-    height: 10.5in;
+    /* Allow a pixel for print rounding so the last row cannot spill over. */
+    --sheet-width: min(7.5in, 100vw, calc((100vh - 1px) * 5 / 7));
+    width: var(--sheet-width);
+    height: calc(var(--sheet-width) * 7 / 5);
     margin: 0 auto;
     outline: none;
     break-inside: avoid;
